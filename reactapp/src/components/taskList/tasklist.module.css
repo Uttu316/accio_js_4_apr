@@ -1,0 +1,29 @@
+
+.list_container{
+    background-color: rgb(177, 247, 223);
+    box-shadow: 4px 4px 4px #ccc;
+    padding: 20px;
+    max-width: 400px;
+    margin: 40px auto;
+    border-radius: 12px;
+}
+
+.list_title{
+    text-align: center;
+    color: salmon;
+    margin-bottom: 10px;
+}
+
+.list_total{
+    color: gray;
+    margin-bottom: 20px;
+
+}
+.task_list{
+   
+    list-style-type: none;
+}
+.list_item{
+    border-bottom: 1px solid gray;
+    padding:  4px;
+}
