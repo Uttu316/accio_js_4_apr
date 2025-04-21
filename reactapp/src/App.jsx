@@ -8,8 +8,8 @@ const App = () => {
     <div>
       <Header />
       <h1>Welcome To React</h1>
-      <TaskList />
-      <Footer />
+      <TaskList title="My Task List" />
+      <Footer name="Accio" />
     </div>
   );
 };

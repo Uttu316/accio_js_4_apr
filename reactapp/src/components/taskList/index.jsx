@@ -1,6 +1,7 @@
+import TaskItem from "./taskItem";
 import styles from "./tasklist.module.css";
-const TaskList = () => {
-  const title = "My Task List";
+const TaskList = (props) => {
+  const { title } = props;
 
   const tasks = [
     { task: "Wake Up", id: "12121" },
@@ -19,9 +20,7 @@ const TaskList = () => {
       {total > 0 && (
         <ul className={styles.task_list}>
           {tasks.map((item) => (
-            <li key={item.id} className={styles.list_item}>
-              <p>{item.task}</p>
-            </li>
+            <TaskItem task={item.task} key={item.id} />
           ))}
         </ul>
       )}
