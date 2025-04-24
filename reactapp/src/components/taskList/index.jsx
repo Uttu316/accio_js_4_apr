@@ -24,7 +24,7 @@ const TaskList = (props) => {
   const onAdd = () => {
     let id = parseInt(Math.random() * 1000); // a random 3 digit id
     setTasks([{ id, task: input }, ...tasks]);
-    /* creating a new state array, 
+    /* creating a new array, 
       copying older tasks and adding new task with id*/
     setInput("");
   };
@@ -40,7 +40,12 @@ const TaskList = (props) => {
       {total > 0 && (
         <ul className={styles.task_list}>
           {tasks.map((item) => (
-            <TaskItem task={item.task} key={item.id} />
+            <TaskItem
+              id={item.id}
+              setTasks={setTasks}
+              task={item.task}
+              key={item.id}
+            />
           ))}
         </ul>
       )}

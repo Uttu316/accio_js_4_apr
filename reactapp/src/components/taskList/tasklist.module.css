@@ -26,4 +26,7 @@
 .list_item{
     border-bottom: 1px solid gray;
     padding:  4px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
