@@ -1,21 +1,32 @@
+import { useCallback, useContext, useMemo } from "react";
 import styles from "./card.module.css";
+import Card from "../../common/card";
+import { ProductContext } from "../../context/ProductContext";
 
-const ProductCard = ({ product, cart, setCart }) => {
+const ProductCard = ({ product }) => {
   const { title, desc, img, brand, price, id } = product;
 
-  const isInCart = cart.find((i) => i.id === id);
+  const { cart, setCart } = useContext(ProductContext);
 
-  const addToCart = () => {
+  const isInCart = useMemo(() => {
+    console.log("Calculating isIncart");
+    return cart.find((i) => i.id === id);
+  }, [cart, id]);
+
+  console.log("Card Function Runing");
+
+  const addToCart = useCallback(() => {
     setCart((cart) => [...cart, product]);
-  };
-  const removeCart = () => {
+  }, [product]);
+
+  const removeCart = useCallback(() => {
     setCart((cart) => {
       let remains = cart.filter((i) => i.id !== id);
       return remains;
     });
-  };
+  }, [id]);
   return (
-    <div className={styles.card}>
+    <Card>
       <img src={img} alt={title} className={styles.img} />
       <div className={styles.content}>
         <p className={styles.title}>{title}</p>
@@ -35,7 +46,7 @@ const ProductCard = ({ product, cart, setCart }) => {
           </button>
         )}
       </div>
-    </div>
+    </Card>
   );
 };
 export default ProductCard;

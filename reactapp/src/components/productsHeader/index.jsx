@@ -1,7 +1,10 @@
+import { useContext } from "react";
 import styles from "./header.module.css";
 import { FaShoppingCart } from "react-icons/fa";
+import { ProductContext } from "../../context/ProductContext";
 
-const ProductsHeader = ({ cart }) => {
+const ProductsHeader = () => {
+  const { cart } = useContext(ProductContext);
   const cartCount = cart.length;
 
   return (

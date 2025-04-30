@@ -1,14 +1,6 @@
 
 
-.card{
-    box-shadow: 4px 4px 4px #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid lightgray;
-    max-width: 240px
-}
+
 
 .img{
     height: 180px;

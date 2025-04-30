@@ -1,20 +1,25 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import { PRODUCT_DATA } from "../../data/productsData";
 import ProductCard from "../productCard";
 import styles from "./list.module.css";
 import { getProducts } from "../../services/products/getProducts";
+import { useAPIStatus } from "../../hooks/useAPIStatus";
 
-const ProductsList = ({ setCart, cart }) => {
+const ProductsList = () => {
   const [list, setlist] = useState([]);
-  const [status, setStatus] = useState("loading");
+  const { setStatus, isDone, isLoading, isError } = useAPIStatus();
+  const pRef = useRef();
 
-  const isLoading = status === "loading";
-  const isError = status === "error";
-  const isDone = status === "done";
+  const reRender = useRef(0);
+
+  reRender.current = reRender.current + 1;
+
   const isEmpty = isDone && list.length === 0;
   const hasData = isDone && list.length > 0;
 
-  const fetchProducts = async () => {
+  const ErrorMessage = useCallback(() => <h3>Something Went Wrong</h3>, []);
+
+  const fetchProducts = useCallback(async () => {
     setStatus("loading");
     try {
       const data = await getProducts();
@@ -24,28 +29,29 @@ const ProductsList = ({ setCart, cart }) => {
       setStatus("error");
       //show error
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchProducts();
   }, []);
+
+  console.log(reRender);
+
   return (
     <div className={styles.listContainer}>
-      <p className={styles.listTitle}>Latest Products</p>
+      <p ref={pRef} className={styles.listTitle}>
+        Latest Products
+      </p>
+
       {hasData && (
         <div className={styles.list}>
           {list.map((item) => (
-            <ProductCard
-              cart={cart}
-              setCart={setCart}
-              key={item.id}
-              product={item}
-            />
+            <ProductCard key={item.id} product={item} />
           ))}
         </div>
       )}
       {isLoading && <h3>Loading...</h3>}
-      {isError && <h3>Something Went Wrong</h3>}
+      {isError && <ErrorMessage />}
       {isEmpty && <h3>No Product Available </h3>}
     </div>
   );
