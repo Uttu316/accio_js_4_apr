@@ -4,6 +4,7 @@ import ProductCard from "../productCard";
 import styles from "./list.module.css";
 import { getProducts } from "../../services/products/getProducts";
 import { useAPIStatus } from "../../hooks/useAPIStatus";
+import { Link } from "react-router";
 
 const ProductsList = () => {
   const [list, setlist] = useState([]);
@@ -46,7 +47,9 @@ const ProductsList = () => {
       {hasData && (
         <div className={styles.list}>
           {list.map((item) => (
-            <ProductCard key={item.id} product={item} />
+            <Link to={`/product/${item.id}`}>
+              <ProductCard key={item.id} product={item} />
+            </Link>
           ))}
         </div>
       )}

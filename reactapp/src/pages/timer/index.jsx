@@ -1,4 +1,4 @@
-import "./App.css";
+import "./timer.css";
 import Counter from "../../components/counter";
 import Footer from "../../components/footer";
 import Header from "../../components/header";

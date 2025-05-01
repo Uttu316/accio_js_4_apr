@@ -6,10 +6,8 @@ import ProductProvider from "../../context/ProductContext";
 const ProductsPage = () => {
   return (
     <div>
-      <ProductProvider>
-        <ProductsHeader />
-        <ProductsList />
-      </ProductProvider>
+      <ProductsHeader title={"Home"} />
+      <ProductsList />
     </div>
   );
 };

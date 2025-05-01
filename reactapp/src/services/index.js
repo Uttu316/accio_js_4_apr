@@ -10,6 +10,9 @@ export const api = async (config) => {
       const data = await res.json();
       return data;
     } else {
+      // const e = new Error();
+      // e.message = res.statusText;
+      // e.status = res.status;
       throw res;
     }
   } catch (e) {

@@ -15,16 +15,24 @@ const ProductCard = ({ product }) => {
 
   console.log("Card Function Runing");
 
-  const addToCart = useCallback(() => {
-    setCart((cart) => [...cart, product]);
-  }, [product]);
+  const addToCart = useCallback(
+    (e) => {
+      setCart((cart) => [...cart, product]);
+      e.preventDefault(); // <-- prevent default action
+    },
+    [product]
+  );
 
-  const removeCart = useCallback(() => {
-    setCart((cart) => {
-      let remains = cart.filter((i) => i.id !== id);
-      return remains;
-    });
-  }, [id]);
+  const removeCart = useCallback(
+    (e) => {
+      setCart((cart) => {
+        let remains = cart.filter((i) => i.id !== id);
+        return remains;
+      });
+      e.preventDefault();
+    },
+    [id]
+  );
   return (
     <Card>
       <img src={img} alt={title} className={styles.img} />
