@@ -10,8 +10,9 @@ const ProductsHeader = ({ title }) => {
   const navigate = useNavigate();
   const cartCount = cart.length;
 
-  const isCart = location.pathname.includes("/cart");
-  const isHome = !isCart;
+  const isLogin = location.pathname === "/login";
+
+  const isHome = location.pathname === "/";
 
   const goToHome = () => {
     navigate("/");
@@ -20,21 +21,32 @@ const ProductsHeader = ({ title }) => {
   const goToCart = () => {
     navigate("/cart");
   };
+  const goToLogin = () => {
+    navigate("/login");
+  };
 
   return (
     <header className={styles.header}>
       <p className={styles.logo}>{title}</p>
-      {isHome && (
-        <p className={styles.cart} onClick={goToCart}>
-          <span className={styles.cartCount}>{cartCount}</span>
-          <FaShoppingCart />
-        </p>
-      )}
-      {isCart && (
-        <p className={styles.cart} onClick={goToHome}>
-          <FaHome />
-        </p>
-      )}
+      <div className={styles.nav}>
+        {!isLogin && (
+          <p className={styles.cart} onClick={goToCart}>
+            <span className={styles.cartCount}>{cartCount}</span>
+            <FaShoppingCart />
+          </p>
+        )}
+
+        {!isHome && (
+          <p className={styles.cart} onClick={goToHome}>
+            <FaHome />
+          </p>
+        )}
+        {!isLogin && (
+          <p className={styles.cart} onClick={goToLogin}>
+            Login
+          </p>
+        )}
+      </div>
     </header>
   );
 };

@@ -5,6 +5,7 @@ import CartPage from "./pages/cart";
 import NotFoundPage from "./pages/notFound";
 import ProductProvider from "./context/ProductContext";
 import Product from "./pages/product";
+import Login from "./pages/login";
 const App = () => {
   return (
     <ProductProvider>
@@ -14,6 +15,7 @@ const App = () => {
           <Route path="/cart" element={<CartPage />} />
           <Route path="/timer" element={<TimerPage />} />
           <Route path="/product/:productId" element={<Product />} />
+          <Route path="/login" element={<Login />} />
           <Route path="*" element={<NotFoundPage />} />
         </Routes>
       </BrowserRouter>

@@ -1,7 +1,8 @@
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
-export const useAPIStatus = () => {
-  const [status, setStatus] = useState("loading");
+export const useAPIStatus = (intialValue) => {
+  let value = intialValue !== undefined ? intialValue : "loading";
+  const [status, setStatus] = useState(value);
 
   const isLoading = status === "loading";
   const isError = status === "error";
