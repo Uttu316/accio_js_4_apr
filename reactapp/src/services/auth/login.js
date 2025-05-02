@@ -7,10 +7,10 @@ export const login = async (data) => {
     body: data,
   });
 
-  if (res && res.data && res.data.accesToken) {
-    const { accesToken } = res.data;
+  if (res && res.data && res.data.accessToken) {
+    const { accessToken } = res.data;
 
-    localStorage.setItem("token", accesToken);
+    localStorage.setItem("token", accessToken);
     return true;
   }
   return false;

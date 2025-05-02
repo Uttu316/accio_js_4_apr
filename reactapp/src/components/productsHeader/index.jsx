@@ -3,11 +3,15 @@ import styles from "./header.module.css";
 import { FaShoppingCart, FaHome } from "react-icons/fa";
 import { ProductContext } from "../../context/ProductContext";
 import { useLocation, useNavigate } from "react-router";
+import { isLoggedIn, logout } from "../../utils/isLoggedIn";
 
 const ProductsHeader = ({ title }) => {
   const { cart } = useContext(ProductContext);
   const location = useLocation();
   const navigate = useNavigate();
+
+  const isUserLoggedIn = isLoggedIn();
+
   const cartCount = cart.length;
 
   const isLogin = location.pathname === "/login";
@@ -22,6 +26,11 @@ const ProductsHeader = ({ title }) => {
     navigate("/cart");
   };
   const goToLogin = () => {
+    navigate("/login");
+  };
+
+  const onLogout = () => {
+    logout();
     navigate("/login");
   };
 
@@ -41,9 +50,14 @@ const ProductsHeader = ({ title }) => {
             <FaHome />
           </p>
         )}
-        {!isLogin && (
+        {!isLogin && !isUserLoggedIn && (
           <p className={styles.cart} onClick={goToLogin}>
             Login
+          </p>
+        )}
+        {isUserLoggedIn && (
+          <p className={styles.cart} onClick={onLogout}>
+            Logout
           </p>
         )}
       </div>

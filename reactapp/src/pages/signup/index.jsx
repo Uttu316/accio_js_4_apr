@@ -2,11 +2,12 @@ import { useState } from "react";
 import styles from "./login.module.css";
 import { useAPIStatus } from "../../hooks/useAPIStatus";
 import ProductsHeader from "../../components/productsHeader";
-import { login } from "../../services/auth/login";
-import { Link, useNavigate } from "react-router";
 
-const initals = { username: "", password: "" };
-const Login = () => {
+import { Link, useNavigate } from "react-router";
+import { signup } from "../../services/auth/signup";
+
+const initals = { username: "", password: "", email: "" };
+const Signup = () => {
   const [data, setData] = useState(initals);
   const navigate = useNavigate();
   const { isLoading, isError, setStatus } = useAPIStatus("");
@@ -18,13 +19,13 @@ const Login = () => {
   };
   const onLogin = async () => {
     setStatus("loading");
-    const { username, password } = data;
+    const { username, password, email } = data;
 
-    if (username.length > 3 && password.length) {
+    if (username.length > 3 && email.length && password.length) {
       try {
-        const res = await login(data);
+        const res = await signup(data);
         if (res) {
-          navigate("/", {
+          navigate("/login", {
             replace: true,
           });
         } else {
@@ -41,9 +42,9 @@ const Login = () => {
   };
   return (
     <div>
-      <ProductsHeader title={"Login"} />
+      <ProductsHeader title={"Signup"} />
       <div className={styles.formContainer}>
-        <h2 className={styles.heading}>Login</h2>
+        <h2 className={styles.heading}>Register</h2>
         <form className={styles.form}>
           <div className={styles.inptuItem}>
             <input
@@ -55,6 +56,19 @@ const Login = () => {
             />{" "}
             <label htmlFor="username" className={styles.label}>
               Username
+            </label>
+          </div>
+          <div className={styles.inptuItem}>
+            <input
+              value={data.email}
+              onChange={onInput}
+              id="email"
+              type="email"
+              placeholder="Enter email here..."
+              className={styles.input}
+            />{" "}
+            <label htmlFor="email" className={styles.label}>
+              Email
             </label>
           </div>
           <div className={styles.inptuItem}>
@@ -71,16 +85,16 @@ const Login = () => {
             </label>
           </div>
         </form>
-        {isError && <p className={styles.error}>Invalid credentials</p>}
+        {isError && <p className={styles.error}>Enter correct details</p>}
         <button className={styles.btn} disabled={isLoading} onClick={onLogin}>
-          {isLoading ? "Processing..." : "Signin"}
+          {isLoading ? "Processing..." : "Signup"}
         </button>
-        <Link className={styles.link} to="/signup">
-          No account? Signup here..
+        <Link className={styles.link} to="/login">
+          Already have account? Login here..
         </Link>
       </div>
     </div>
   );
 };
 
-export default Login;
+export default Signup;
